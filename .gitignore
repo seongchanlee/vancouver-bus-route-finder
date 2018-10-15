@@ -3,3 +3,5 @@ vancouver-bus-route-finder.cabal
 *~
 *.hi
 *.o
+Main
+*.json
