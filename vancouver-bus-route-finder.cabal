@@ -1,0 +1,52 @@
+-- This file has been generated from package.yaml by hpack version 0.28.2.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 8653e97059b77f1ba56400bfdcb7e11116e7472246c5ebdbc55c9c07c667fe8c
+
+name:           vancouver-bus-route-finder
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/vancouver-bus-route-finder#readme>
+homepage:       https://github.com/githubuser/vancouver-bus-route-finder#readme
+bug-reports:    https://github.com/githubuser/vancouver-bus-route-finder/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2018 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/vancouver-bus-route-finder
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_vancouver_bus_route_finder
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+      , HTTP
+  default-language: Haskell2010
+
+executable vancouver-bus-route-finder-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_vancouver_bus_route_finder
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , vancouver-bus-route-finder
+    , HTTP
+    , http-conduit
+    , aeson
+  default-language: Haskell2010
