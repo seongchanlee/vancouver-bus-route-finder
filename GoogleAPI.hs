@@ -10,6 +10,8 @@ import Network.HTTP.Headers
 import Data.Maybe
 import qualified Data.ByteString.Lazy as B
 
+import JsonParser
+
 directionsUrl = "https://maps.googleapis.com/maps/api/directions/json?"
 
 {- DO NOT PUSH API KEY -}
@@ -17,7 +19,7 @@ apiKey = ""
 
 getDirection origin destination = do
   {- From busloop to Granville station as a sample for now -}
-  initReq <- parseUrl (directionsUrl)
+  initReq <- parseUrlThrow (directionsUrl)
   let r = initReq {method = "GET"}
   let request = setQueryString [("origin", Just origin)
                                 ,("destination", Just destination)

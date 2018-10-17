@@ -3,10 +3,35 @@
 module Main where
 
 import System.IO
+-- import Text.Read
+
+import GoogleAPI
+import Logo
+
+-- import JsonParser
 
 main = do
- getOriginFromUser
+ hSetBuffering stdout NoBuffering
+ putStrLn logo
+ -- getDirection "UBC" "Granville"
+ getOriginFromUser 
  getDestFromUser
+
+
+
+{-
+-- main :: IO String
+main = do
+ putStrLn "Would you like to search a route?"
+ ans <- getLineFixed
+ if (ans `elem` ["y","yes"]) then 
+  getOriginFromUser getDestFromUser
+ else if (ans `elem` ["n", "no"]) then 
+  putStrLn "Goodbye!"
+ else
+  putStrLn "Invalid input, please answer y/n"
+-}
+
 
 getOriginFromUser :: IO String
 getOriginFromUser = do
