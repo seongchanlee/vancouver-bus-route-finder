@@ -9,9 +9,9 @@ version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/githubuser/vancouver-bus-route-finder#readme>
 homepage:       https://github.com/githubuser/vancouver-bus-route-finder#readme
 bug-reports:    https://github.com/githubuser/vancouver-bus-route-finder/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2018 Author name here
+author:         Seongchan Lee & Hanae Nakajima
+maintainer:     n/a
+copyright:      2018 Seongchan Lee & Hanae Nakajima
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
