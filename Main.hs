@@ -110,9 +110,17 @@ initMenu = do
     printNewLine
     initMenu
 
+mainMenu :: IO()
+mainMenu = do
+  hSetBuffering stdout NoBuffering
+  putStrLn logo
+  initMenu
+
 {- Main function -}
 main :: IO()
 main = do
- hSetBuffering stdout NoBuffering
- putStrLn logo
- initMenu
+ if (GAPI.apiKey == "")
+   then
+     putStrLn("Please check API key.")
+   else
+     mainMenu
