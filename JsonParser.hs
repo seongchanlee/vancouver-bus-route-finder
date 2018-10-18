@@ -54,9 +54,6 @@ instance FromJSON Route where
     legs <- o .: "legs"
     return Route{..}
 
-routes :: Value -> Parser [Route]
-routes = withObject "Routes" $ \o -> o .: "routes"
-
 checkRoutes :: Maybe [Route] -> [Route]
 checkRoutes routes
     | isJust routes = fromJust routes
