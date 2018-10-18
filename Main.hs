@@ -97,4 +97,6 @@ initMenu = do
 
 main :: IO()
 main = do
+ hSetBuffering stdout NoBuffering
+ putStrLn logo
  initMenu

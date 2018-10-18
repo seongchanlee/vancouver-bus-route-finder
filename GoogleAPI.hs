@@ -14,6 +14,8 @@ import qualified Data.ByteString.Lazy as LBS
 import qualified Data.ByteString.Char8 as BS
 import qualified JsonParser as JP
 
+import JsonParser
+
 directionsUrl = "https://maps.googleapis.com/maps/api/directions/json?"
 
 {- DO NOT PUSH API KEY -}
@@ -22,7 +24,7 @@ apiKey = ""
 getDirectionFromApi :: String -> String -> IO(LBS.ByteString)
 getDirectionFromApi origin destination = do
   {- From busloop to Granville station as a sample for now -}
-  initReq <- parseUrl (directionsUrl)
+  initReq <- parseUrlThrow (directionsUrl)
   let r = initReq {method = "GET"}
   let request = setQueryString [("origin", Just (BS.pack origin))
                                 ,("destination", Just (BS.pack destination))
