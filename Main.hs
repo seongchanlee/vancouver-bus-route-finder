@@ -76,7 +76,7 @@ stepsToString n (h:t) = (((show n) ++ ". "++ (T.unpack(JP.instruction (h)))) ++ 
 printNewLine :: IO ()
 printNewLine = putStrLn("")
 
-{- Function for inital menu -}
+{- Function for get user inputs and print direction -}
 initMenu :: IO()
 initMenu = do
   origin <- getOriginFromUser
@@ -110,6 +110,7 @@ initMenu = do
     printNewLine
     initMenu
 
+{- Function for main menu to print logo and call initMenu function -}
 mainMenu :: IO()
 mainMenu = do
   hSetBuffering stdout NoBuffering
