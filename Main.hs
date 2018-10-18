@@ -3,6 +3,7 @@
 module Main where
 
 import System.IO
+import Logo
 import qualified GoogleAPI as GAPI
 import qualified JsonParser as JP
 import qualified Data.Text as T
