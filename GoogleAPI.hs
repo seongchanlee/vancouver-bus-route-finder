@@ -21,9 +21,9 @@ directionsUrl = "https://maps.googleapis.com/maps/api/directions/json?"
 {- DO NOT PUSH API KEY -}
 apiKey = ""
 
+{- Function to do make HTTPS GET request to Google's Direction API -}
 getDirectionFromApi :: String -> String -> IO(LBS.ByteString)
 getDirectionFromApi origin destination = do
-  {- From busloop to Granville station as a sample for now -}
   initReq <- parseUrlThrow (directionsUrl)
   let r = initReq {method = "GET"}
   let request = setQueryString [("origin", Just (BS.pack origin))
@@ -35,14 +35,17 @@ getDirectionFromApi origin destination = do
   res <- httpLbs request manager
   return . responseBody $ res
 
+{- Function to store JSON file externally -}
 storeDirectionInExternalJson :: String -> String -> IO()
 storeDirectionInExternalJson origin destination = do
   routeInJson <- getDirectionFromApi origin destination
   LBS.writeFile "route.json" routeInJson
 
+{- Function to quickly grab list of Route from JSON -}
 routes :: Value -> Parser [JP.Route]
 routes = withObject "Routes" $ \o -> o .: "routes"
 
+{- Function to get list of Route from loaded JSON -}
 getDirectionFromFile :: String -> String -> IO ([JP.Route])
 getDirectionFromFile origin destination = do
   storeDirectionInExternalJson origin destination
