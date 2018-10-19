@@ -44,6 +44,7 @@ askRestart = do
  response <- getLineFixed
  return response
 
+{- Function to handle I/O given user response -}
 restartMenu :: [Char] -> IO()
 restartMenu res = do
   if res == "y" then (do
