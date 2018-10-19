@@ -4,6 +4,7 @@ module Main where
 
 import System.IO
 import Logo
+import Data.Maybe
 import qualified GoogleAPI as GAPI
 import qualified JsonParser as JP
 import qualified Data.Text as T
@@ -43,9 +44,23 @@ askRestart = do
  response <- getLineFixed
  return response
 
+restartMenu :: [Char] -> IO()
+restartMenu res = do
+  if res == "y" then (do
+    printNewLine
+    initMenu)
+  else if res == "n" then (do
+    printNewLine
+    putStrLn("Exiting.")
+    return ())
+  else (do
+    printNewLine
+    putStrLn("Invalid input. Exiting."))
+
 {- Function to get the first Route from list of Routes -}
-unshellRoute :: [JP.Route] -> JP.Route
-unshellRoute (h:t) = h
+unshellRoute :: [JP.Route] -> Maybe JP.Route
+unshellRoute [] = Nothing
+unshellRoute (h:t) = Just h
 
 {- Function to get the first Leg from list of Legs -}
 unshellLeg :: [JP.Leg] -> JP.Leg
@@ -82,28 +97,28 @@ initMenu = do
   origin <- getOriginFromUser
   dest <- getDestFromUser
   if (origin /= "" && dest /= "") then do
-    route <- GAPI.getDirectionFromFile origin dest
-    let leg = unshellLeg ((JP.legs (unshellRoute route)))
+    routeList <- GAPI.getDirectionFromFile origin dest
+    let route = unshellRoute routeList
 
-    printNewLine
-    printDuration leg
-    printDepartureTime leg
-    printArrivalTime leg
-    printNewLine
-    printSteps (JP.steps leg)
+    if (isNothing route) then do
+      printNewLine
+      putStrLn("No route found.")
+      printNewLine
+      response <- askRestart
+      restartMenu response
 
-    response <- askRestart
+    else do
+      let leg = unshellLeg ((JP.legs ((fromJust route))))
 
-    if response == "y" then (do
       printNewLine
-      initMenu)
-    else if response == "n" then (do
+      printDuration leg
+      printDepartureTime leg
+      printArrivalTime leg
       printNewLine
-      putStrLn("Exiting.")
-      return ())
-    else (do
-      printNewLine
-      putStrLn("Invalid input. Exiting."))
+      printSteps (JP.steps leg)
+
+      response <- askRestart
+      restartMenu response
 
   else do
     putStrLn("Invalid input. Please try again.")
